@@ -85,7 +85,3 @@ tsconfig.tsbuildinfo
 # TailwindCSS
 .turbo
 .svelte-kit
-
-# Random
-*.tgz
-*.zip
