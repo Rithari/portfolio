@@ -1,0 +1,9 @@
+# Wrangler configuration file for portfolio project
+main = ".open-next/worker.js"
+name = "portfolio"
+compatibility_date = "2025-04-12"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
