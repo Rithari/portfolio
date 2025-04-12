@@ -1,18 +1,26 @@
- 
-// Route segment config
-export const runtime = 'edge';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import { NextResponse } from 'next/server';
 
-// Image metadata
+// This file exists only to specify metadata for the icon
+// The actual icon is served from the static file in public
+
 export const size = {
   width: 32,
   height: 32,
 };
 export const contentType = 'image/png';
 
-// Image generation
-export default async function Icon() {
-  // Use the existing favicon-32x32.png
-  return fetch(new URL('./favicon-32x32.png', import.meta.url)).then(
-    (res) => res.arrayBuffer()
-  );
+export default function Icon() {
+  // Get the path to the icon file
+  const iconPath = join(process.cwd(), 'src', 'app', 'favicon-32x32.png');
+  // Read the file as buffer
+  const iconBuffer = readFileSync(iconPath);
+  // Return as a response
+  return new NextResponse(iconBuffer, {
+    headers: {
+      'Content-Type': contentType,
+      'Cache-Control': 'public, max-age=2592000',
+    },
+  });
 }

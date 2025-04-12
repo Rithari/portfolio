@@ -53,7 +53,7 @@ export default function RootLayout({
                   <ul className="flex gap-6">
                     <li><Link href="/" className="text-sm text-gray-400 hover:text-gray-100">home</Link></li>
                     <li><a href="#projects" className="text-sm text-gray-400 hover:text-gray-100">projects</a></li>
-                    <li><Link href="/wynnxp" className="text-sm text-gray-400 hover:text-gray-100">wynnxp</Link></li>
+                    <li><a href="/wynnxp/index.html" className="text-sm text-gray-400 hover:text-gray-100">wynnxp</a></li>
                   </ul>
                 </nav>
                 <ThemeToggle />
