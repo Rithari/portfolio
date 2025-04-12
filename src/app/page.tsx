@@ -51,8 +51,8 @@ export default function Home() {
   return (
     <div className="space-y-16 mb-12">
       {/* Hero Section */}
-      <section className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6 max-w-3xl mx-auto">
-        <div className="text-left">
+      <section className="flex flex-col-reverse md:flex-row items-center md:items-start justify-between gap-6 max-w-3xl mx-auto">
+        <div className="text-left w-full">
           <h1 className="text-5xl font-bold mb-3">hi leo here 👋</h1>
           <p className="text-lg mb-2 text-gray-600 dark:text-gray-400">
             software engineer from Zürich 🇨🇭
@@ -102,7 +102,7 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="relative w-36 h-36 md:w-48 md:h-48 rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-800 flex-shrink-0">
+        <div className="relative w-36 h-36 md:w-48 md:h-48 rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-800 flex-shrink-0 mb-6 md:mb-0">
           <Image
             src="/pfp.jpeg"
             alt="Leo"
