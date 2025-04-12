@@ -59,7 +59,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="flex flex-col-reverse md:flex-row items-center md:items-start justify-between gap-6 max-w-3xl mx-auto">
         <div className="text-left w-full">
-          <h1 className="text-5xl font-bold mb-3">hi leo here 👋</h1>
+          <h1 className="text-5xl font-bold mb-3">hi leo here <span className="wave">👋</span></h1>
           <p className="text-lg mb-2 text-gray-600 dark:text-gray-400">
             software engineer from Zürich 🇨🇭
           </p>
