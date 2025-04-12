@@ -14,9 +14,12 @@ import {
 import {Button} from "@/components/ui/button";
 import {getTechIcon, getSimpleTechIcon} from "@/lib/utils";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {AnnouncementBanner} from "@/components/ui/announcement-banner";
 
 export default function Home() {
   const [showAllProjects, setShowAllProjects] = useState(false);
+  
+  const announcement = "The resume downloads are being worked on to provide a version without personal information.\nWynnXP will be redeployed and available again soon.";
 
   const projects = [
     {
@@ -50,6 +53,9 @@ export default function Home() {
 
   return (
     <div className="space-y-16 mb-12">
+      {/* Announcement Banner */}
+      <AnnouncementBanner announcement={announcement} />
+      
       {/* Hero Section */}
       <section className="flex flex-col-reverse md:flex-row items-center md:items-start justify-between gap-6 max-w-3xl mx-auto">
         <div className="text-left w-full">
