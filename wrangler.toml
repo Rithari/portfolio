@@ -7,3 +7,14 @@ compatibility_flags = ["nodejs_compat"]
 [assets]
 directory = ".open-next/assets"
 binding = "ASSETS"
+
+# Custom domain configuration
+# Replace "your-domain.com" with your actual domain
+[[routes]]
+pattern = "leolucadatri.io"
+custom_domain = true
+
+# If you want to add additional domains or subdomains
+# [[routes]]
+# pattern = "www.leolucadatri.io"
+# custom_domain = true
