@@ -19,7 +19,7 @@ import {AnnouncementBanner} from "@/components/ui/announcement-banner";
 export default function Home() {
   const [showAllProjects, setShowAllProjects] = useState(false);
   
-  const announcement = "The resume downloads are being worked on to provide a version without personal information.\nWynnXP will be redeployed and available again soon.";
+  const announcement = "The resume downloads are being worked on to provide a version without personal information.";
 
   const projects = [
     {
