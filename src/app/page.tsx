@@ -144,8 +144,7 @@ export default function Home() {
           >
             view {showAllProjects ? "less" : "more"}
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${showAllProjects ? "rotate-180" : ""} transition-transform`}>
-              <path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8L8.14645 4.85355C7.95118 4.65829 7.95118 4.34171 8.14645 4.14645Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path>
-              <path d="M2.5 7C2.5 6.72386 2.72386 6.5 3 6.5L11 6.5C11.2761 6.5 11.5 6.72386 11.5 7C11.5 7.27614 11.2761 7.5 11 7.5L3 7.5C2.72386 7.5 2.5 7.27614 2.5 7Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path>
+              <path d="M7.5 11.1412L3.00423 6.3695C2.73943 6.0875 2.81515 5.6347 3.16558 5.45678C3.29454 5.39454 3.44195 5.39455 3.57091 5.45679L7.5 7.72514L11.4291 5.45679C11.7795 5.2788 12.2323 5.35457 12.4103 5.7049C12.4725 5.83387 12.4725 5.98125 12.4103 6.1102L7.9145 11.1412C7.7941 11.2718 7.6204 11.2718 7.5 11.1412Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"/>
             </svg>
           </button>
         </div>
