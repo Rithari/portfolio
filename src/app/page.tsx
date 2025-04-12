@@ -224,7 +224,7 @@ function TabsSection() {
         <TabsContent value="education" className="mt-2">
           <Card className="border-gray-200 dark:border-[#333333] dark:bg-transparent">
             <CardContent className="p-0">
-              <ul className="ml-10 border-l border-gray-200 dark:border-[#333333]">
+                <ul className="ml-10 border-l border-gray-200 dark:border-[#333333]">
                 <EducationTimelineItem 
                   institution="University of Turin"
                   degree="Bachelor in Computer Science"
@@ -233,24 +233,24 @@ function TabsSection() {
                   locationText="Turin, Italy"
                   description="Graduated with a score of 107/110, focusing on software development, algorithms, and system design. Gained practical experience in object-oriented programming with Java and Python, algorithms, data structures, databases (SQL and NoSQL), network technologies, and full-stack development with React and Node.js."
                   thesis={{
-                    title: "Application Performance Monitoring: the Apdex Score",
-                    description: "Developed dashboards for real-time monitoring of user satisfaction and application performance",
-                    link: "https://leoiucadatri.io/thesis.pdf"
+                  title: "Application Performance Monitoring: the Apdex Score",
+                  description: "Developed dashboards for real-time monitoring of user satisfaction and application performance",
+                  link: "/thesis.pdf"
                   }}
                   techStack={[
-                    "Java", 
-                    "Python", 
-                    "JavaScript", 
-                    "TypeScript", 
-                    "C", 
-                    "HTML / CSS", 
-                    "Node.js", 
-                    "SQL", 
-                    "NoSQL", 
-                    "Software Development Practices"
+                  "Java", 
+                  "Python", 
+                  "JavaScript", 
+                  "TypeScript", 
+                  "C", 
+                  "HTML / CSS", 
+                  "Node.js", 
+                  "SQL", 
+                  "NoSQL", 
+                  "Software Development Practices"
                   ]}
                 />
-              </ul>
+                </ul>
             </CardContent>
           </Card>
         </TabsContent>
