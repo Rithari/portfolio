@@ -40,6 +40,16 @@ import {
 // Import MongoDB icon from Simple Icons
 import {siMongodb, siDotnet, siRedis, siC} from 'simple-icons/icons';
 
+// Define interface for Simple Icon structure
+interface SimpleIcon {
+  title: string;
+  slug: string;
+  hex: string;
+  source: string;
+  svg: string;
+  path: string;
+}
+
 // Map tech names to their FontAwesome icons
 export const techIconMap: Record<string, IconDefinition | null> = {
   // Languages
@@ -94,7 +104,7 @@ export const techIconMap: Record<string, IconDefinition | null> = {
 };
 
 // MongoDB will use Simple Icons logo
-export const simpleTechIconMap: Record<string, any> = {
+export const simpleTechIconMap: Record<string, SimpleIcon> = {
   'mongodb': siMongodb,
   'c#': siDotnet,
   'redis': siRedis,
@@ -125,7 +135,7 @@ export function getTechIcon(tech: string): IconDefinition | null {
 }
 
 // Function to get Simple Icon if available
-export function getSimpleTechIcon(tech: string): any | null {
+export function getSimpleTechIcon(tech: string): SimpleIcon | null {
   const techLower = tech.toLowerCase();
   
   // Direct match

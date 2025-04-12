@@ -4,6 +4,7 @@ import "./globals.css";
 import {cn} from "../lib/utils";
 import {ThemeProvider} from "@/components/theme-provider";
 import {ThemeToggle} from "../components/theme-toggle";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,9 +40,9 @@ export default function RootLayout({
               <div className="container max-w-4xl mx-auto px-4 flex justify-between items-center">
                 <nav>
                   <ul className="flex gap-6">
-                    <li><a href="/" className="text-sm text-gray-400 hover:text-gray-100">home</a></li>
+                    <li><Link href="/" className="text-sm text-gray-400 hover:text-gray-100">home</Link></li>
                     <li><a href="#projects" className="text-sm text-gray-400 hover:text-gray-100">projects</a></li>
-                    <li><a href="/wynnxp" className="text-sm text-gray-400 hover:text-gray-100">wynnxp</a></li>
+                    <li><Link href="/wynnxp" className="text-sm text-gray-400 hover:text-gray-100">wynnxp</Link></li>
                   </ul>
                 </nav>
                 <ThemeToggle />
@@ -56,7 +57,7 @@ export default function RootLayout({
             
             <footer className="py-6 border-t border-gray-100 dark:border-gray-800">
               <div className="container max-w-4xl mx-auto px-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                © {new Date().getFullYear()} Leoluca D'Atri
+                © {new Date().getFullYear()} Leoluca D&apos;Atri
               </div>
             </footer>
           </div>
