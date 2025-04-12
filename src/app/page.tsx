@@ -1,103 +1,495 @@
+"use client";
+
 import Image from "next/image";
+import {useState} from "react";
+import {Mail, Download, ChevronDown} from "lucide-react";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import {Card, CardContent} from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {Button} from "@/components/ui/button";
+import {getTechIcon, getSimpleTechIcon} from "@/lib/utils";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [showAllProjects, setShowAllProjects] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const projects = [
+    {
+      title: "FootballDataPortal",
+      description: "A comprehensive system for accessing and analyzing Transfermarkt football data through a frontend interface.",
+      tags: ["Java Spring Boot", "Python", "PostgreSQL", "MongoDB", "React", "Node.js", "Docker"],
+      github: "https://github.com/Rithari/FootballDataPortal"
+    },
+    {
+      title: "Custom Compiler",
+      description: "Implemented a lexer, parser, validator and translator for a custom programming language.",
+      tags: ["Java", "Compiler Design", "Parsing"],
+      github: "https://github.com/Rithari/custom-compiler"
+    },
+    {
+      title: "URL Shortener",
+      description: "A local URL shortening service built as a weekend project with Java Spring Boot, C#, MongoDB, and Redis for caching.",
+      tags: ["Java Spring Boot", "C#", "MongoDB", "Redis"],
+      github: "https://github.com/Rithari/url-shortener"
+    },
+    {
+      title: "Full Self Driving Neural Network",
+      description: "Self-driving cars simulation with reinforcement learning and MLP neural network architecture.",
+      tags: ["JavaScript", "Neural Networks", "Reinforcement Learning"],
+      github: "https://github.com/Rithari/FSD-javascript"
+    },
+  ];
+
+  // Display first 2 projects by default, all when showAllProjects is true
+  const visibleProjects = showAllProjects ? projects : projects.slice(0, 2);
+
+  return (
+    <div className="space-y-16 mb-12">
+      {/* Hero Section */}
+      <section className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6 max-w-3xl mx-auto">
+        <div className="text-left">
+          <h1 className="text-5xl font-bold mb-3">hi leo here 👋</h1>
+          <p className="text-lg mb-2 text-gray-600 dark:text-gray-400">
+            software engineer from Zürich 🇨🇭
+          </p>
+          <p className="text-gray-600 dark:text-gray-400 mb-10 text-sm">
+            I like to build stuff. I particularly like doing that with Java, C# and Python.<br /> Outside of coding, I play the clarinet and speak 🇩🇪 (🇨🇭), 🇮🇹 & 🇬🇧  <br /> —sometimes all in the same day.
+          </p>
+          
+          <div className="flex gap-4 mb-6">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="default" className="inline-flex items-center gap-2 bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-md text-base font-medium hover:opacity-90 transition-opacity h-auto">
+                  <Download className="h-4 w-4" /> Resume <ChevronDown className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuItem asChild>
+                  <a href="/resume_en.pdf" download className="flex items-center cursor-pointer">
+                    <Download className="h-4 w-4 mr-2" /> 🇬🇧 (WIP)
+                  </a>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <a href="/resume_de.pdf" download className="flex items-center cursor-pointer">
+                    <Download className="h-4 w-4 mr-2" /> 🇨🇭 / 🇩🇪 (WIP)
+                  </a>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <a href="#" className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-github h-5 w-5" aria-hidden="true">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77a5.07 5.07 0 0 0-.09-3.77S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1a5.07 5.07 0 0 0-.09 3.77A5.44 5.44 0 0 0 3 8.52c0 5.42 3.3 6.61 6.44 7a3.37 3.37 0 0 0-.94 2.61V22"></path>
+              </svg>
+              <span className="sr-only">GitHub</span>
+            </a>
+            <a href="#" className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin h-5 w-5" aria-hidden="true">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect width="4" height="12" x="2" y="9"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              <span className="sr-only">LinkedIn</span>
+            </a>
+            <a href="mailto:leo@leolucadatri.io" className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+              <Mail className="h-5 w-5" />
+              <span className="sr-only">Email</span>
+            </a>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        
+        <div className="relative w-36 h-36 md:w-48 md:h-48 rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-800 flex-shrink-0">
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src="/pfp.jpeg"
+            alt="Leo"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 144px, 192px"
+            priority
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+        </div>
+      </section>
+
+      {/* Work/Education Section */}
+      <TabsSection />
+
+      {/* Projects Section */}
+      <section id="projects" className="max-w-3xl mx-auto">
+        <h2 className="text-xl font-bold mb-4">cool projects</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+          {visibleProjects.map((project, index) => (
+            <ProjectCard 
+              key={index}
+              title={project.title} 
+              description={project.description}
+              tags={project.tags}
+              github={project.github}
+            />
+          ))}
+        </div>
+        <div className="text-center">
+          <button
+            onClick={() => setShowAllProjects(!showAllProjects)}
+            className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium inline-flex items-center gap-2"
+          >
+            view {showAllProjects ? "less" : "more"}
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${showAllProjects ? "rotate-180" : ""} transition-transform`}>
+              <path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8L8.14645 4.85355C7.95118 4.65829 7.95118 4.34171 8.14645 4.14645Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path>
+              <path d="M2.5 7C2.5 6.72386 2.72386 6.5 3 6.5L11 6.5C11.2761 6.5 11.5 6.72386 11.5 7C11.5 7.27614 11.2761 7.5 11 7.5L3 7.5C2.72386 7.5 2.5 7.27614 2.5 7Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function TabsSection() {
+  return (
+    <section className="max-w-3xl mx-auto">
+      <Tabs defaultValue="work" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 bg-gray-100 dark:bg-[#191919]">
+          <TabsTrigger 
+            value="work"
+            className="data-[state=active]:bg-white dark:data-[state=active]:bg-[#121212] data-[state=active]:text-foreground data-[state=active]:shadow rounded-md"
+          >
+            Work
+          </TabsTrigger>
+          <TabsTrigger 
+            value="education"
+            className="data-[state=active]:bg-white dark:data-[state=active]:bg-[#121212] data-[state=active]:text-foreground data-[state=active]:shadow rounded-md"
+          >
+            Education
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="work" className="mt-2">
+          <Card className="border-gray-200 dark:border-[#333333] dark:bg-transparent">
+            <CardContent className="p-0">
+              <ul className="ml-10 border-l border-gray-200 dark:border-[#333333]">
+                <WorkExperienceTimelineItem 
+                  company="ALTEN"
+                  role="Bachelor Thesis / Internship"
+                  period={{ start: "Feb 2024", end: "May 2024" }}
+                  logo="/alten.svg"
+                  locationText="Turin - Italy"
+                  tasks={[
+                    "Conducted application performance analysis using Dynatrace to improve user experience and software performance",
+                    "Optimized Application Performance Index (APDEX) for measuring user satisfaction and identifying performance bottlenecks",
+                    "Performed daily data analysis and extraction using SQL to improve transparency and support decision-making"
+                  ]}
+                  techStack={["Dynatrace", "SQL", "APM"]}
+                />
+                <WorkExperienceTimelineItem 
+                  company="GradFuel"
+                  role="Team Lead & Full-Stack Developer"
+                  period={{ start: "Apr 2020", end: "May 2021" }}
+                  logo="/gradfuel.svg"
+                  locationText="Remote - London"
+                  tasks={[
+                    "Led an Auroware team developing GradFuel, a B2B SaaS platform built with MongoDB, Express, React, and Node.js",
+                    "Managed recruiting and funding processes for 1,500 SMBs",
+                    "Contributed to the company's valuation of €1.05 Million in 2020"
+                  ]}
+                  techStack={["MongoDB", "Express", "React", "Node.js"]}
+                />
+                <WorkExperienceTimelineItem 
+                  company="Auroware Ltd."
+                  role="Co-Founder & Technical Lead"
+                  period={{ start: "Feb 2020", end: "Jun 2021" }}
+                  logo="/auroware.png"
+                  locationText="Remote - London"
+                  tasks={[
+                    "Co-founded an IT consulting company with two partners, leading business and technical aspects",
+                    "Managed a team of three employees while overseeing project development",
+                    "Collaborated closely with clients on defining, planning, and implementing projects",
+                    "Led meetings with clients and stakeholders to communicate technical concepts and develop efficient solutions",
+                  ]}
+                  techStack={["Project Management", "Agile Methodologies", "Team Management"]}
+                />
+              </ul>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="education" className="mt-2">
+          <Card className="border-gray-200 dark:border-[#333333] dark:bg-transparent">
+            <CardContent className="p-0">
+              <ul className="ml-10 border-l border-gray-200 dark:border-[#333333]">
+                <EducationTimelineItem 
+                  institution="University of Turin"
+                  degree="Bachelor in Computer Science"
+                  period={{ start: "Nov 2021", end: "Nov 2024" }}
+                  logo="/university.svg"
+                  locationText="Turin, Italy"
+                  description="Graduated with a score of 107/110, focusing on software development, algorithms, and system design. Gained practical experience in object-oriented programming with Java and Python, algorithms, data structures, databases (SQL and NoSQL), network technologies, and full-stack development with React and Node.js."
+                  thesis={{
+                    title: "Application Performance Monitoring: the Apdex Score",
+                    description: "Developed dashboards for real-time monitoring of user satisfaction and application performance",
+                    link: "https://leoiucadatri.io/thesis.pdf"
+                  }}
+                  techStack={[
+                    "Java", 
+                    "Python", 
+                    "JavaScript", 
+                    "TypeScript", 
+                    "C", 
+                    "HTML / CSS", 
+                    "Node.js", 
+                    "SQL", 
+                    "NoSQL", 
+                    "Software Development Practices"
+                  ]}
+                />
+              </ul>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </section>
+  );
+}
+
+function WorkExperienceTimelineItem({ 
+  company, 
+  role, 
+  period, 
+  logo, 
+  logoBackground,
+  locationText, 
+  tasks,
+  projectLinks,
+  techStack
+}: {
+  company: string;
+  role: string;
+  period: { start: string; end: string };
+  logo: string;
+  logoBackground?: string;
+  locationText: string;
+  tasks: string[];
+  projectLinks?: Array<{ name: string; url: string }>;
+  techStack?: string[];
+}) {
+  return (
+    <li className="relative ml-10 py-4">
+      <div className="absolute -left-16 top-4 flex items-center justify-center">
+        <div className={`w-12 h-12 rounded-full ${logoBackground || "bg-white"} border border-gray-200 flex items-center justify-center overflow-hidden`}>
+          <Image 
+            src={logo}
+            alt={company}
+            width={32}
+            height={32}
+            className="w-9 h-9 object-contain"
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+        </div>
+      </div>
+      <div className="flex flex-1 flex-col justify-start gap-1">
+        <time className="text-xs text-muted-foreground">
+          <span>{period.start}</span>
+          <span> - </span>
+          <span>{period.end}</span>
+        </time>
+        <h2 className="font-semibold leading-none">{company}</h2>
+        <p className="text-sm text-muted-foreground">{role}</p>
+        <p className="text-sm text-muted-foreground">{locationText}</p>
+        <ul className="ml-4 list-outside list-disc">
+          {tasks.map((task, index) => (
+            <li key={index} className="prose pr-8 text-sm dark:prose-invert">{task}</li>
+          ))}
+        </ul>
+      </div>
+      
+      {/* Tech Stack Badges */}
+      {techStack && techStack.length > 0 && (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {techStack.map((tech, index) => {
+            const faIcon = getTechIcon(tech);
+            const simpleIcon = getSimpleTechIcon(tech);
+            
+            return (
+              <div 
+                key={index}
+                className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700"
+              >
+                {faIcon && (
+                  <FontAwesomeIcon 
+                    icon={faIcon} 
+                    className="w-3.5 h-3.5 mr-1.5" 
+                  />
+                )}
+                {!faIcon && simpleIcon && (
+                  <span 
+                    dangerouslySetInnerHTML={{ __html: simpleIcon.svg }} 
+                    className="w-3.5 h-3.5 mr-1.5 flex-shrink-0"
+                    style={{ fill: 'currentColor' }}
+                  />
+                )}
+                {tech}
+              </div>
+            );
+          })}
+        </div>
+      )}
+      
+      {projectLinks && projectLinks.length > 0 && (
+        <div className="mt-2 flex flex-row flex-wrap items-start gap-2">
+          {projectLinks.map((link, index) => (
+            <a key={index} href={link.url}>
+              <div 
+                className="items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80 flex gap-2" 
+                title={link.name}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-globe size-3" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20"></path>
+                  <path d="M2 12h20"></path>
+                </svg>
+                {link.name}
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </li>
+  );
+}
+
+function EducationTimelineItem({ 
+  institution, 
+  degree, 
+  period, 
+  logo, 
+  locationText,
+  description,
+  thesis,
+  techStack
+}: {
+  institution: string;
+  degree: string;
+  period: { start: string; end: string };
+  logo: string;
+  locationText: string;
+  description: string;
+  thesis?: { title: string; description: string; link: string };
+  techStack?: string[];
+}) {
+  return (
+    <li className="relative ml-10 py-4">
+      <div className="absolute -left-16 top-4 flex items-center justify-center">
+        <div className="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center overflow-hidden">
+          <Image 
+            src={logo}
+            alt={institution}
+            width={32}
+            height={32}
+            className="w-9 h-9 object-contain"
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </div>
+      </div>
+      <div className="flex flex-1 flex-col justify-start gap-1">
+        <time className="text-xs text-muted-foreground">
+          <span>{period.start}</span>
+          <span> - </span>
+          <span>{period.end}</span>
+        </time>
+        <h2 className="font-semibold leading-none">{institution}</h2>
+        <p className="text-sm text-muted-foreground">{degree}</p>
+        <p className="text-sm text-muted-foreground">{locationText}</p>
+        <p className="prose pr-8 text-sm dark:prose-invert mt-2">{description}</p>
+        
+        {/* Tech Stack Badges */}
+        {techStack && techStack.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {techStack.map((tech, index) => {
+              const faIcon = getTechIcon(tech);
+              const simpleIcon = getSimpleTechIcon(tech);
+              
+              return (
+                <div 
+                  key={index}
+                  className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700"
+                >
+                  {faIcon && (
+                    <FontAwesomeIcon 
+                      icon={faIcon} 
+                      className="w-3.5 h-3.5 mr-1.5" 
+                    />
+                  )}
+                  {!faIcon && simpleIcon && (
+                    <span 
+                      dangerouslySetInnerHTML={{ __html: simpleIcon.svg }} 
+                      className="w-3.5 h-3.5 mr-1.5 flex-shrink-0"
+                      style={{ fill: 'currentColor' }}
+                    />
+                  )}
+                  {tech}
+                </div>
+              );
+            })}
+          </div>
+        )}
+        
+        {thesis && (
+          <div className="mt-2">
+            <h3 className="text-sm font-semibold">Thesis: {thesis.title}</h3>
+            <p className="text-sm text-muted-foreground">{thesis.description}</p>
+            <a href={thesis.link} className="text-sm text-blue-500 hover:underline">Read Thesis</a>
+          </div>
+        )}
+      </div>
+    </li>
+  );
+}
+
+function ProjectCard({ title, description, tags, github }: {
+  title: string;
+  description: string;
+  tags: string[];
+  github: string;
+}) {
+  return (
+    <div className="border border-gray-200 dark:border-gray-800 rounded-lg p-6">
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="text-gray-600 dark:text-gray-400 mb-6">{description}</p>
+      <div className="flex flex-wrap gap-2 mb-4">
+        {tags.map((tag, index) => {
+          const faIcon = getTechIcon(tag);
+          const simpleIcon = getSimpleTechIcon(tag);
+          
+          return (
+            <span 
+              key={index} 
+              className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-2 py-1 rounded flex items-center"
+            >
+              {faIcon && (
+                <FontAwesomeIcon 
+                  icon={faIcon} 
+                  className="w-3.5 h-3.5 mr-1.5" 
+                />
+              )}
+              {!faIcon && simpleIcon && (
+                <span 
+                  dangerouslySetInnerHTML={{ __html: simpleIcon.svg }} 
+                  className="w-3.5 h-3.5 mr-1.5 flex-shrink-0"
+                  style={{ fill: 'currentColor' }}
+                />
+              )}
+              {tag}
+            </span>
+          );
+        })}
+      </div>
+      <a href={github} className="text-sm text-blue-500 hover:underline inline-flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77a5.07 5.07 0 0 0-.09-3.77S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1a5.07 5.07 0 0 0-.09 3.77A5.44 5.44 0 0 0 3 8.52c0 5.42 3.3 6.61 6.44 7a3.37 3.37 0 0 0-.94 2.61V22"></path>
+        </svg>
+        View on GitHub
+      </a>
     </div>
   );
 }
