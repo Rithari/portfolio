@@ -2,12 +2,6 @@ import {NextResponse} from 'next/server';
 import {createClient} from '@vercel/edge-config';
 import type {AnnouncementType} from '@/components/ui/announcement-banner';
 
-// Define the type for our announcement data
-interface AnnouncementData {
-  text: string;
-  type: AnnouncementType;
-}
-
 export const runtime = 'edge';
 
 export async function GET() {
@@ -25,7 +19,7 @@ export async function GET() {
         ? typeFromEnv as AnnouncementType 
         : 'info';
         
-      console.log('Using local announcement:', { text: announcementText, type: announcementType });
+      console.log('Using local announcement:', { announcement: announcementText, type: announcementType });
     } else {
       // In production, use Edge Config
       try {
@@ -38,35 +32,16 @@ export async function GET() {
         
         const client = createClient(edgeConfigUrl);
         
-        // Try to get the announcement data
-        const announcementData = await client.get('announcement');
-        
-        if (typeof announcementData === 'object' && announcementData !== null) {
-          // If it's stored as an object with text and type properties
-          const data = announcementData as Record<string, unknown>;
-          
-          // Extract text with type safety
-          if (typeof data.text === 'string') {
-            announcementText = data.text;
-          }
-          
-          // Extract type with validation
-          if (typeof data.type === 'string' && 
-             (data.type === 'warning' || data.type === 'info')) {
-            announcementType = data.type as AnnouncementType;
-          }
-        } else if (typeof announcementData === 'string') {
-          // For backward compatibility: if it's stored as just a string
+        // Fetch announcement text and type as separate keys from Edge Config
+        const announcementData = await client.get('announcement') as string;
+        if (announcementData) {
           announcementText = announcementData;
-          
-          // Try to get a separate type value
-          const typeValue = await client.get('announcementType');
-          
-          // Validate the type value
-          if (typeof typeValue === 'string' && 
-             (typeValue === 'warning' || typeValue === 'info')) {
-            announcementType = typeValue as AnnouncementType;
-          }
+        }
+        
+        // Fetch the announcement type
+        const typeData = await client.get('type') as string;
+        if (typeData && (typeData === 'warning' || typeData === 'info')) {
+          announcementType = typeData as AnnouncementType;
         }
       } catch (error) {
         console.error('Error fetching from Edge Config:', error);
