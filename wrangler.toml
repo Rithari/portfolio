@@ -8,8 +8,12 @@ compatibility_flags = ["nodejs_compat"]
 directory = ".open-next/assets"
 binding = "ASSETS"
 
+# KV Namespace binding for dynamic announcements
+[[kv_namespaces]]
+binding = "ANNOUNCEMENT"
+id = "b428b1971ea44bed96b27499f277561e"
+
 # Custom domain configuration
-# Replace "your-domain.com" with your actual domain
 [[routes]]
 pattern = "leolucadatri.io"
 custom_domain = true

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {Mail, Download, ChevronDown} from "lucide-react";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {Card, CardContent} from "@/components/ui/card";
@@ -18,9 +18,16 @@ import {AnnouncementBanner} from "@/components/ui/announcement-banner";
 
 export default function Home() {
   const [showAllProjects, setShowAllProjects] = useState(false);
+  const [announcement, setAnnouncement] = useState("");
   
-  const announcement = "The English version of the resume is now available.";
-
+  // Fetch announcement from API
+  useEffect(() => {
+    fetch('/api/announcement')
+      .then(res => res.json())
+      .then(data => setAnnouncement(data.announcement))
+      .catch(err => console.error("Failed to fetch announcement:", err));
+  }, []);
+  
   const projects = [
     {
       title: "FootballDataPortal",
