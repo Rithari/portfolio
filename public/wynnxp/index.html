@@ -1,437 +1,725 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Wynncraft XP Bonus Items</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WynnXP - XP Bonus Items</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;700&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* Dark theme (now default and only theme) */
+            --background: #171717;
+            --foreground: #f8f8f8;
+            --muted-foreground: #a3a3a3;
+            --card: #262626;
+            --card-foreground: #f8f8f8;
+            --border: rgba(255, 255, 255, 0.1);
+            --input: rgba(255, 255, 255, 0.15);
+            --primary: #f8f8f8;
+            --primary-foreground: #171717;
+            --secondary: #333333;
+            --secondary-foreground: #f8f8f8;
+            --accent: #333333;
+            --accent-foreground: #f8f8f8;
+            --destructive: #dc2626;
+            --destructive-foreground: #f8f8f8;
+            --ring: #737373;
+
+            /* WynnXP specific colors */
+            --tradeable: #22c55e;
+            --not-tradeable: #ef4444;
+            --xp-bonus: #22c55e; /* Using green for XP bonus */
+            --special-accent: #0ea5e9;
+            
+            /* Border radius */
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: #1e1e1e; 
-            color: #ffffff; 
-            font-family: 'Courier New', monospace;
-            padding: 20px;
-            max-width: 1200px;
+            background-color: var(--background);
+            color: var(--foreground);
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1024px;
             margin: 0 auto;
+            padding: 0 1rem;
         }
-        .header {
+
+        header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--foreground);
+        }
+
+        main {
+            padding: 1rem 0 3rem;
+        }
+
+        footer {
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--border);
             text-align: center;
-            margin-bottom: 30px;
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
         }
-        .header h1 {
-            color: #55FFFF;
-            margin-bottom: 5px;
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
         }
-        .header .subtitle {
-            color: #888;
-            font-style: italic;
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
         }
+
+        .subtitle {
+            color: var(--muted-foreground);
+            margin-bottom: 2rem;
+        }
+
         .timestamp {
-            color: #55FFFF;
             text-align: right;
-            margin-bottom: 20px;
-            font-size: 0.9em;
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
         }
-        .timestamp.visible {
-            display: block;
+
+        .card {
+            background-color: var(--card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
         }
-        .info-box {
-            background-color: #2d2d2d;
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border-left: 4px solid #FF5555;
-            line-height: 1.6;
-            font-size: 1.1em;
-            box-shadow: 0 2px 4px rgba(255, 85, 85, 0.1);
-        }
-        .info-box h3 {
-            color: #FF5555;
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-            letter-spacing: 0.5px;
-        }
-        .info-box p {
-            color: #DDD;
-            margin-bottom: 15px;
-        }
-        .info-box ul {
-            margin: 15px 0 5px 0;
-            padding-left: 25px;
-            color: #DDD;
-        }
-        .info-box li {
-            margin-bottom: 12px;
-            position: relative;
-        }
-        .info-box li::before {
-            content: "•";
-            color: #FF5555;
-            font-weight: bold;
-            position: absolute;
-            left: -15px;
-        }
-        .button-container {
-            text-align: right;
-            margin-bottom: 20px;
-        }
-        .theme-button {
-            background-color: #2d2d2d;
-            color: #55FFFF;
-            border: 2px solid #55FFFF;
-            padding: 8px 16px;
-            border-radius: 4px;
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
             cursor: pointer;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            transition: all 0.2s ease;
-            margin-left: 10px;
         }
-        .theme-button:hover {
-            background-color: #55FFFF;
-            color: #1e1e1e;
+
+        .card-header h2 {
+            margin: 0;
         }
-        .theme-button:active {
-            transform: scale(0.98);
+
+        .card-content {
+            transition: max-height 0.3s ease;
+            overflow: hidden;
+            max-height: 100000px; /* Increased max height to ensure content fits */
         }
-        .summary {
-            background-color: #2d2d2d;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 30px;
-        }
-        .summary h2 {
+
+        .collapsed .card-content {
+            max-height: 0;
             margin-top: 0;
-            color: #55FF55;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            overflow: hidden;
         }
+
+        .info-card {
+            border-left: 4px solid var(--destructive);
+        }
+
+        .info-card .card-header h2 {
+            color: var(--destructive);
+        }
+
+        .category-card .card-header h2 {
+            color: var(--special-accent);
+        }
+
         .summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
         }
+
         .summary-item {
-            background-color: #363636;
-            padding: 15px;
-            border-radius: 3px;
+            background-color: var(--secondary);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
         }
-        .category { 
-            margin-top: 20px; 
-            border-bottom: 1px solid #555;
-            padding-bottom: 10px;
+
+        .summary-item strong {
+            color: var(--special-accent);
         }
-        .category h2 {
-            color: #55FFFF;
-            cursor: pointer;
-            user-select: none;
-        }
-        .category h2::before {
-            content: '▼';
-            display: inline-block;
-            margin-right: 10px;
-            transition: transform 0.3s;
-        }
-        .category.collapsed h2::before {
-            transform: rotate(-90deg);
-        }
-        .category.collapsed .items-grid {
-            display: none;
-        }
+
         .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 10px;
-            align-items: start;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
+
         .item {
-            background-color: #2d2d2d;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 3px;
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
             cursor: pointer;
-            transition: background-color 0.2s;
-            height: fit-content;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
+            transition: border-color 0.2s, transform 0.1s;
         }
+
+        .item:hover {
+            border-color: var(--ring);
+            transform: translateY(-2px);
+        }
+
         .item-header {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 0.25rem;
         }
-        .item-header:hover {
-            background-color: #363636;
+
+        .item-name {
+            font-weight: 500;
         }
+
         .item-details {
-            display: none;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #444;
-            width: 100%;
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease;
+            border-top: 1px solid var(--border);
+            margin-top: 0.75rem;
+            padding-top: 0;
         }
+
         .item-details.expanded {
-            display: block;
+            height: auto;
+            padding-top: 0.75rem;
+            overflow: visible;
         }
-        .item > *:first-child {
-            white-space: nowrap;
-            display: block;
-            margin-bottom: 3px;
-        }
-        .item-info {
-            display: block;
-            margin-bottom: 3px;
-        }
+
         .stat-section {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #363636;
-            border-radius: 4px;
+            background-color: var(--secondary);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
         }
+
         .section-title {
-            color: #55FFFF;
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 1.1em;
+            color: var(--special-accent);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
         }
+
         .stat {
-            color: #DDD;
-            margin: 5px 0;
-            font-size: 0.95em;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
+            margin: 0.25rem 0;
+            font-size: 0.875rem;
         }
+
         .stat-name {
-            min-width: 120px;
-            color: #888;
+            color: var(--muted-foreground);
+            min-width: 100px;
         }
-        .stat-value {
-            color: inherit;
-        }
-        .lore-text {
-            color: #DDD;
-            font-style: italic;
-            line-height: 1.4;
-            padding: 5px 0;
-        }
-        .positive {
-            color: #55FF55;
-        }
-        .negative {
-            color: #FF5555;
-        }
-        .neutral {
-            color: #FFFFFF;
-        }
-        .drop-info {
-            color: #888;
-            margin-left: 20px;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
+
         .tradeable {
-            color: #55FF55;
+            color: var(--tradeable);
         }
+
         .not-tradeable {
-            color: #FF5555;
+            color: var(--not-tradeable);
         }
-        .set-tag {
-            color: #55FF55;
-        }
-        .level {
-            color: #888;
-        }
+
         .xp-bonus {
-            color: #FFFF55;
+            color: var(--xp-bonus);
         }
-        .collapsible {
+
+        .positive {
+            color: var(--tradeable);
+        }
+
+        .negative {
+            color: var(--not-tradeable);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .toggle-container {
+            background-color: var(--secondary);
+            border-radius: var(--radius-md);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toggle-container label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             cursor: pointer;
-            user-select: none;
         }
-        .collapsible::before {
-            content: '▼';
-            display: inline-block;
-            margin-right: 10px;
-            transition: transform 0.3s;
+
+        .toggle-description {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            margin-left: 0.25rem;
         }
-        .collapsed .collapsible::before {
-            transform: rotate(-90deg);
-        }
-        .collapsed .collapsible-content {
-            display: none;
-        }
-        .info-box h3, .summary h2 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-        }
+
         .item.non-competitive {
             display: none;
         }
+        
         .show-all .item.non-competitive {
-            display: flex;
+            display: block;
         }
+
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+
+        .collapsed .chevron {
+            transform: rotate(-90deg);
+        }
+
+        /* Checkbox styling */
+        input[type="checkbox"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: transparent;
+            margin: 0;
+            width: 1.2em;
+            height: 1.2em;
+            border: 2px solid var(--muted-foreground);
+            border-radius: 0.3em;
+            transform: translateY(-0.075em);
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"]::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            border-radius: 0.1em;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em var(--special-accent);
+        }
+
+        input[type="checkbox"]:checked::before {
+            transform: scale(1);
+        }
+
+        input[type="checkbox"]:focus {
+            outline: 2px solid var(--special-accent);
+            outline-offset: 2px;
+        }
+
         .efficiency-warning {
-            color: #FF5555;
-            font-style: italic;
-            font-size: 0.9em;
+            color: var(--not-tradeable); /* Ensure this stays red */
+            font-size: 0.8rem;
         }
-        .button-container {
-            text-align: right;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
+
+        @media (max-width: 768px) {
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
         }
-        .efficiency-toggle {
+
+        .control-buttons {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background-color: #2d2d2d;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 20px;
+            gap: 1rem;
         }
-        .efficiency-toggle label {
+        
+        .action-button {
+            background-color: var(--secondary);
+            color: var(--foreground);
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: background-color 0.2s;
             display: flex;
             align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            user-select: none;
+            gap: 0.5rem;
         }
-        .efficiency-toggle input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-        .efficiency-toggle .description {
-            font-size: 0.9em;
-            color: #888;
-            margin-top: 4px;
+        
+        .action-button:hover {
+            background-color: var(--accent);
         }
     </style>
     <script>
-        function toggleCollapse(element) {
-            element.classList.toggle('collapsed');
+        function toggleCollapse(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.classList.toggle('collapsed');
+            }
         }
-
-        function toggleCategory(element) {
-            const category = element.closest('.category');
-            toggleCollapse(category);
+        
+        function toggleAllSections(collapse) {
+            document.querySelectorAll('.category-card').forEach(section => {
+                if (collapse) {
+                    if (!section.classList.contains('collapsed')) {
+                        section.classList.add('collapsed');
+                    }
+                } else {
+                    if (section.classList.contains('collapsed')) {
+                        section.classList.remove('collapsed');
+                    }
+                }
+            });
+        }
+        
+        function expandAllSections() {
+            toggleAllSections(false);
+        }
+        
+        function collapseAllSections() {
+            toggleAllSections(true);
         }
         
         function toggleItem(elementId) {
             const element = document.getElementById(elementId);
+            if (!element) return;
+            
             const details = element.querySelector('.item-details');
-            details.classList.toggle('expanded');
+            if (!details) return;
+            
+            const isExpanded = details.classList.contains('expanded');
+            
+            // If we're collapsing, animate the height to 0 first
+            if (isExpanded) {
+                // Get the current height
+                const startHeight = details.scrollHeight;
+                
+                // Set exact pixel height so we can animate to zero
+                details.style.height = startHeight + 'px';
+                
+                // Force a reflow
+                void details.offsetHeight;
+                
+                // Set height to 0 to trigger transition
+                details.style.height = '0';
+                
+                // When transition ends, remove expanded class and reset styles
+                const onTransitionEnd = () => {
+                    details.classList.remove('expanded');
+                    details.removeEventListener('transitionend', onTransitionEnd);
+                };
+                
+                details.addEventListener('transitionend', onTransitionEnd);
+            } else {
+                // If expanding, add the class first
+                details.classList.add('expanded');
+                
+                // Get the scrollHeight which is the full expanded height
+                const targetHeight = details.scrollHeight;
+                
+                // Start at 0 height
+                details.style.height = '0';
+                
+                // Force a reflow
+                void details.offsetHeight;
+                
+                // Set the height to the target height to animate
+                details.style.height = targetHeight + 'px';
+                
+                // When transition ends, set height to auto to handle content changes
+                const onTransitionEnd = () => {
+                    details.style.height = 'auto';
+                    details.removeEventListener('transitionend', onTransitionEnd);
+                };
+                
+                details.addEventListener('transitionend', onTransitionEnd);
+            }
         }
 
         function toggleCompetitiveFilter() {
             const checkbox = document.getElementById('toggleCompetitive');
             const itemsContainer = document.getElementById('items');
-            itemsContainer.classList.toggle('show-all', checkbox.checked);
+            const showAll = checkbox.checked;
+            
+            // Toggle show-all class
+            itemsContainer.classList.toggle('show-all', showAll);
+            
+            // Update counts to reflect what's actually visible
+            setTimeout(() => updateVisibleCounts(), 10);
         }
-    </script>
-</head>
-<body>
-    <div class="header">
-        <h1>Wynncraft XP Bonus Items</h1>
-        <div class="subtitle">Created by Rithari</div>
-    </div>
-    
-    <div class="timestamp">
-        <span id="timestamp"></span>
-    </div>
-    
-    <div class="info-box">
-        <h3 class="collapsible" onclick="toggleCollapse(this.parentElement)">⚠️ Important Information</h3>
-        <div class="collapsible-content">
-            <p>This is a curated list of Wynncraft items that provide XP bonuses. The list is designed to help you find the best items for leveling:</p>
-            <ul>
-                <li>By default, only the <strong>most competitive</strong> items are shown - items that provide less XP than a lower-level alternative are hidden (except for ingredients).</li>
-                <li>Use the "Show hiden items" toggle to display all items, including less competitive ones.</li>
-                <li>All items are organized by category (helmet, weapon, etc.) and sorted by level requirement.</li>
-                <li>Items marked in <span style="color: #55FF55">green</span> are tradeable, while items in <span style="color: #FF5555">red</span> cannot be traded. For non-tradeable items, their source location is shown.</li>
-            </ul>
-        </div>
-    </div>
-    
-    <div class="summary">
-        <h2 class="collapsible" onclick="toggleCollapse(this.parentElement)">Summary</h2>
-        <div class="summary-grid collapsible-content">
-            <div class="summary-item"><strong>Total Items:</strong> <span id="total-items">Loading...</span></div>
-            <div class="summary-item"><strong>Helmet</strong><br>Items: <span id="helmet-count">Loading...</span><br>Tradeable: <span id="helmet-tradeable">Loading...</span><br>Max XP: <span id="helmet-max-xp">Loading...</span></div>
-            <div class="summary-item"><strong>Chestplate</strong><br>Items: <span id="chestplate-count">Loading...</span><br>Tradeable: <span id="chestplate-tradeable">Loading...</span><br>Max XP: <span id="chestplate-max-xp">Loading...</span></div>
-            <div class="summary-item"><strong>Leggings</strong><br>Items: <span id="leggings-count">Loading...</span><br>Tradeable: <span id="leggings-tradeable">Loading...</span><br>Max XP: <span id="leggings-max-xp">Loading...</span></div>
-            <div class="summary-item"><strong>Boots</strong><br>Items: <span id="boots-count">Loading...</span><br>Tradeable: <span id="boots-tradeable">Loading...</span><br>Max XP: <span id="boots-max-xp">Loading...</span></div>
-        </div>
-    </div>
-
-    <div class="efficiency-toggle">
-        <label>
-            <input type="checkbox" id="toggleCompetitive" onchange="toggleCompetitiveFilter()">
-            <span>Show hidden items</span>
-        </label>
-        <div class="description">
-            Enable this to see all items, including those that may be less efficient for leveling.
-        </div>
-    </div>
-
-    <div id="items">
-        <div class="category">
-            <h2 class="collapsible" onclick="toggleCollapse(this.parentElement)">Helmet</h2>
-            <div class="items-grid collapsible-content">
-                <!-- Items will be dynamically populated here -->
-            </div>
-        </div>
-
-        <div class="category">
-            <h2 class="collapsible" onclick="toggleCollapse(this.parentElement)">Chestplate</h2>
-            <div class="items-grid collapsible-content">
-                <!-- Items will be dynamically populated here -->
-            </div>
-        </div>
-
-        <div class="category">
-            <h2 class="collapsible" onclick="toggleCollapse(this.parentElement)">Leggings</h2>
-            <div class="items-grid collapsible-content">
-                <!-- Items will be dynamically populated here -->
-            </div>
-        </div>
-
-        <div class="category">
-            <h2 class="collapsible" onclick="toggleCollapse(this.parentElement)">Boots</h2>
-            <div class="items-grid collapsible-content">
-                <!-- Items will be dynamically populated here -->
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('total-items').textContent = 'Loading...';
-        document.getElementById('helmet-count').textContent = 'Loading...';
-        document.getElementById('helmet-tradeable').textContent = 'Loading...';
-        document.getElementById('helmet-max-xp').textContent = 'Loading...';
-        document.getElementById('chestplate-count').textContent = 'Loading...';
-        document.getElementById('chestplate-tradeable').textContent = 'Loading...';
-        document.getElementById('chestplate-max-xp').textContent = 'Loading...';
-        document.getElementById('leggings-count').textContent = 'Loading...';
-        document.getElementById('leggings-tradeable').textContent = 'Loading...';
-        document.getElementById('leggings-max-xp').textContent = 'Loading...';
-        document.getElementById('boots-count').textContent = 'Loading...';
-        document.getElementById('boots-tradeable').textContent = 'Loading...';
-        document.getElementById('boots-max-xp').textContent = 'Loading...';
         
-        document.getElementById('timestamp').textContent = 'Loading...';
-    </script>
-    <script src="js/items.js"></script>
-    <script>
-        // Start fetching items after all scripts are loaded
+        function updateVisibleCounts() {
+            // Update total visible items count
+            let totalVisibleItems = 0;
+            
+            // Process each category section
+            document.querySelectorAll('.category-card').forEach(section => {
+                const sectionId = section.id;
+                if (!sectionId) return;
+                
+                const categoryName = sectionId.replace('-section', '');
+                const itemsGrid = section.querySelector('.items-grid');
+                if (!itemsGrid) return;
+                
+                // Get all items in this category
+                const allItems = itemsGrid.querySelectorAll('.item');
+                
+                // Get visible items (either not non-competitive or visible non-competitive items)
+                const visibleItems = Array.from(allItems).filter(item => {
+                    if (!item.classList.contains('non-competitive')) return true;
+                    // If it's non-competitive, it's only visible when showAll is true
+                    return document.getElementById('items').classList.contains('show-all');
+                });
+                
+                // Update the category count
+                totalVisibleItems += visibleItems.length;
+                
+                // Update the header count
+                const header = section.querySelector('h2');
+                if (header) {
+                    const baseText = header.textContent.split('(')[0].trim();
+                    header.textContent = `${baseText} (${visibleItems.length})`;
+                }
+                
+                // If this is one of the main categories, update the summary
+                if (['helmet', 'chestplate', 'leggings', 'boots', 'ingredient'].includes(categoryName)) {
+                    updateCategoryVisibleCount(categoryName, visibleItems);
+                }
+            });
+            
+            // Update total items count in summary
+            const totalItemsElement = document.getElementById('total-items');
+            if (totalItemsElement) {
+                totalItemsElement.textContent = totalVisibleItems;
+            }
+        }
+        
+        function updateCategoryVisibleCount(category, visibleItems) {
+            const countElement = document.getElementById(`${category}-count`);
+            const tradeableElement = document.getElementById(`${category}-tradeable`);
+            
+            if (countElement) {
+                countElement.textContent = visibleItems.length;
+            }
+            
+            if (tradeableElement) {
+                const tradeableCount = visibleItems.filter(
+                    item => item.querySelector('.tradeable')
+                ).length;
+                tradeableElement.textContent = tradeableCount;
+            }
+        }
+
+        // Initialize page when loaded
         document.addEventListener('DOMContentLoaded', () => {
             fetchItems();
         });
     </script>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <nav>
+                <ul>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/#projects">projects</a></li>
+                    <li><a href="/wynnxp/index.html" style="color: var(--foreground);">wynnxp</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>WynnXP</h1>
+        <p class="subtitle">Wynncraft XP Bonus Items Database</p>
+        
+        <div class="timestamp">
+            <span id="timestamp">Last updated: Loading...</span>
+        </div>
+        
+        <div id="info-box" class="card info-card">
+            <div class="card-header" onclick="toggleCollapse('info-box')">
+                <span>⚠️</span>
+                <h2>Important Information</h2>
+                <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto;">
+                    <path d="M8 11.1412L3.50423 6.3695C3.23943 6.0875 3.31515 5.6347 3.66558 5.45678C3.79454 5.39454 3.94195 5.39455 4.07091 5.45679L8 7.72514L11.9291 5.45679C12.2795 5.2788 12.7323 5.35457 12.9103 5.7049C12.9725 5.83387 12.9725 5.98125 12.9103 6.1102L8.4145 11.1412C8.2941 11.2718 8.1204 11.2718 8 11.1412Z" fill="currentColor"/>
+                </svg>
+            </div>
+            <div class="card-content">
+                <p>This is a curated list of Wynncraft items that provide XP bonuses. The list is designed to help you find the best items for leveling:</p>
+                <ul style="margin: 1rem 0 1rem 1.5rem;">
+                    <li style="margin-bottom: 0.5rem;">By default, only the <strong>most competitive</strong> items are shown - items that provide less XP than a lower-level alternative are hidden (except for ingredients).</li>
+                    <li style="margin-bottom: 0.5rem;">Use the "Show hidden items" toggle to display all items, including less competitive ones.</li>
+                    <li style="margin-bottom: 0.5rem;">All items are organized by category (helmet, weapon, etc.) and sorted by level requirement.</li>
+                    <li style="margin-bottom: 0.5rem;">Items marked in <span class="tradeable">green</span> are tradeable, while items in <span class="not-tradeable">red</span> cannot be traded. For non-tradeable items, their source location is shown.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="summary-card" class="card">
+            <div class="card-header" onclick="toggleCollapse('summary-card')">
+                <h2>Summary</h2>
+                <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto;">
+                    <path d="M8 11.1412L3.50423 6.3695C3.23943 6.0875 3.31515 5.6347 3.66558 5.45678C3.79454 5.39454 3.94195 5.39455 4.07091 5.45679L8 7.72514L11.9291 5.45679C12.2795 5.2788 12.7323 5.35457 12.9103 5.7049C12.9725 5.83387 12.9725 5.98125 12.9103 6.1102L8.4145 11.1412C8.2941 11.2718 8.1204 11.2718 8 11.1412Z" fill="currentColor"/>
+                </svg>
+            </div>
+            <div class="card-content">
+                <div class="summary-grid">
+                    <div class="summary-item"><strong>Total Items:</strong> <span id="total-items">Loading...</span></div>
+                    <div class="summary-item"><strong>Helmet</strong><br>Items: <span id="helmet-count">Loading...</span><br>Tradeable: <span id="helmet-tradeable">Loading...</span><br>Max XP: <span id="helmet-max-xp">Loading...</span></div>
+                    <div class="summary-item"><strong>Chestplate</strong><br>Items: <span id="chestplate-count">Loading...</span><br>Tradeable: <span id="chestplate-tradeable">Loading...</span><br>Max XP: <span id="chestplate-max-xp">Loading...</span></div>
+                    <div class="summary-item"><strong>Leggings</strong><br>Items: <span id="leggings-count">Loading...</span><br>Tradeable: <span id="leggings-tradeable">Loading...</span><br>Max XP: <span id="leggings-max-xp">Loading...</span></div>
+                    <div class="summary-item"><strong>Boots</strong><br>Items: <span id="boots-count">Loading...</span><br>Tradeable: <span id="boots-tradeable">Loading...</span><br>Max XP: <span id="boots-max-xp">Loading...</span></div>
+                    <div class="summary-item"><strong>Ingredient</strong><br>Items: <span id="ingredient-count">Loading...</span><br>Tradeable: <span id="ingredient-tradeable">Loading...</span><br>Max XP: <span id="ingredient-max-xp">Loading...</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="toggle-container">
+                <label>
+                    <input type="checkbox" id="toggleCompetitive" onchange="toggleCompetitiveFilter()">
+                    <span>Show hidden items</span>
+                </label>
+                <span class="toggle-description">See all items, including less efficient ones</span>
+            </div>
+            
+            <div class="control-buttons">
+                <button class="action-button" onclick="expandAllSections()">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 4.85876L12.4958 9.6305C12.7606 9.9125 12.6848 10.3653 12.3344 10.5432C12.2055 10.6055 12.058 10.6055 11.9291 10.5432L8 8.27486L4.07091 10.5432C3.72048 10.7212 3.2677 10.6454 3.08971 10.2951C3.02748 10.1661 3.02748 10.0187 3.08971 9.8898L7.5855 4.85876C7.7059 4.72816 7.8796 4.72816 8 4.85876Z" fill="currentColor"/>
+                    </svg>
+                    Expand All
+                </button>
+                <button class="action-button" onclick="collapseAllSections()">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 11.1412L3.50423 6.3695C3.23943 6.0875 3.31515 5.6347 3.66558 5.45678C3.79454 5.39454 3.94195 5.39455 4.07091 5.45679L8 7.72514L11.9291 5.45679C12.2795 5.2788 12.7323 5.35457 12.9103 5.7049C12.9725 5.83387 12.9725 5.98125 12.9103 6.1102L8.4145 11.1412C8.2941 11.2718 8.1204 11.2718 8 11.1412Z" fill="currentColor"/>
+                    </svg>
+                    Collapse All
+                </button>
+            </div>
+        </div>
+
+        <div id="items">
+            <div id="helmet-section" class="card category-card">
+                <div class="card-header" onclick="toggleCollapse('helmet-section')">
+                    <h2>Helmet</h2>
+                    <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto;">
+                        <path d="M8 11.1412L3.50423 6.3695C3.23943 6.0875 3.31515 5.6347 3.66558 5.45678C3.79454 5.39454 3.94195 5.39455 4.07091 5.45679L8 7.72514L11.9291 5.45679C12.2795 5.2788 12.7323 5.35457 12.9103 5.7049C12.9725 5.83387 12.9725 5.98125 12.9103 6.1102L8.4145 11.1412C8.2941 11.2718 8.1204 11.2718 8 11.1412Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <div class="items-grid">
+                        <!-- Items will be dynamically populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="chestplate-section" class="card category-card">
+                <div class="card-header" onclick="toggleCollapse('chestplate-section')">
+                    <h2>Chestplate</h2>
+                    <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto;">
+                        <path d="M8 11.1412L3.50423 6.3695C3.23943 6.0875 3.31515 5.6347 3.66558 5.45678C3.79454 5.39454 3.94195 5.39455 4.07091 5.45679L8 7.72514L11.9291 5.45679C12.2795 5.2788 12.7323 5.35457 12.9103 5.7049C12.9725 5.83387 12.9725 5.98125 12.9103 6.1102L8.4145 11.1412C8.2941 11.2718 8.1204 11.2718 8 11.1412Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <div class="items-grid">
+                        <!-- Items will be dynamically populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="leggings-section" class="card category-card">
+                <div class="card-header" onclick="toggleCollapse('leggings-section')">
+                    <h2>Leggings</h2>
+                    <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto;">
+                        <path d="M8 11.1412L3.50423 6.3695C3.23943 6.0875 3.31515 5.6347 3.66558 5.45678C3.79454 5.39454 3.94195 5.39455 4.07091 5.45679L8 7.72514L11.9291 5.45679C12.2795 5.2788 12.7323 5.35457 12.9103 5.7049C12.9725 5.83387 12.9725 5.98125 12.9103 6.1102L8.4145 11.1412C8.2941 11.2718 8.1204 11.2718 8 11.1412Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <div class="items-grid">
+                        <!-- Items will be dynamically populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="boots-section" class="card category-card">
+                <div class="card-header" onclick="toggleCollapse('boots-section')">
+                    <h2>Boots</h2>
+                    <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto;">
+                        <path d="M8 11.1412L3.50423 6.3695C3.23943 6.0875 3.31515 5.6347 3.66558 5.45678C3.79454 5.39454 3.94195 5.39455 4.07091 5.45679L8 7.72514L11.9291 5.45679C12.2795 5.2788 12.7323 5.35457 12.9103 5.7049C12.9725 5.83387 12.9725 5.98125 12.9103 6.1102L8.4145 11.1412C8.2941 11.2718 8.1204 11.2718 8 11.1412Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <div class="items-grid">
+                        <!-- Items will be dynamically populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Made with ❤️ by <a href="https://github.com/Ritharis" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Rithari</a></p>
+        </div>
+    </footer>
+
+    <script src="js/items.js"></script>
 </body>
 </html>

@@ -85,3 +85,6 @@ tsconfig.tsbuildinfo
 # TailwindCSS
 .turbo
 .svelte-kit
+
+# WynnXP
+public/wynnxp/js/mock-items.json
