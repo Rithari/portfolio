@@ -19,7 +19,7 @@ import {AnnouncementBanner} from "@/components/ui/announcement-banner";
 export default function Home() {
   const [showAllProjects, setShowAllProjects] = useState(false);
   
-  const announcement = "The resume downloads are being worked on to provide a version without personal information.";
+  const announcement = "The English version of the resume is now available.";
 
   const projects = [
     {
@@ -76,8 +76,8 @@ export default function Home() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start">
                 <DropdownMenuItem asChild>
-                  <a href="/resume_en.pdf" download className="flex items-center cursor-pointer">
-                    <Download className="h-4 w-4 mr-2" /> 🇬🇧 (WIP)
+                  <a href="/CV EN.pdf" download className="flex items-center cursor-pointer">
+                    <Download className="h-4 w-4 mr-2" /> 🇬🇧
                   </a>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
