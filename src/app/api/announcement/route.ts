@@ -1,13 +1,28 @@
 import {NextResponse} from 'next/server';
+import {createClient} from '@vercel/edge-config';
+
+export const runtime = 'edge';
 
 export async function GET() {
   try {
-    // Since we're not using edge runtime, we'll simulate the announcement API
-    // In production, you'll need to set up environment variables or use another approach
+    let announcement = '';
     
-    // This will return a dummy announcement in development
-    // In production, you should configure Cloudflare Pages to include your KV data
-    const announcement = process.env.ANNOUNCEMENT || '';
+    // Check if we're in development mode
+    if (process.env.NODE_ENV === 'development') {
+      // Use LOCAL_ANNOUNCEMENT environment variable in development
+      announcement = process.env.LOCAL_ANNOUNCEMENT || '';
+      console.log('Using local announcement:', announcement);
+    } else {
+      // In production, use Edge Config
+      try {
+        const client = createClient(process.env.EDGE_CONFIG);
+        if (client) {
+          announcement = await client.get('announcement') || '';
+        }
+      } catch (error) {
+        console.error('Error fetching from Edge Config:', error);
+      }
+    }
     
     return NextResponse.json(
       { announcement },
@@ -18,7 +33,7 @@ export async function GET() {
       }
     );
   } catch (error) {
-    console.error('Error fetching announcement:', error);
+    console.error('Error in announcement API:', error);
     return NextResponse.json({ announcement: '' }, { status: 500 });
   }
 }

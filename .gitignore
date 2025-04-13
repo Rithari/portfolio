@@ -88,3 +88,4 @@ tsconfig.tsbuildinfo
 
 # WynnXP
 public/wynnxp/js/mock-items.json
+.env*.local
