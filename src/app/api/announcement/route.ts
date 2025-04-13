@@ -7,12 +7,21 @@ export async function GET() {
   try {
     let announcement = '';
     
-    // Create Edge Config client to access stored values
-    const client = createClient(process.env.EDGE_CONFIG);
-    
-    if (client) {
-      // Get the announcement value from Edge Config
-      announcement = await client.get('announcement') || '';
+    // Check if we're in development mode
+    if (process.env.NODE_ENV === 'development') {
+      // Use LOCAL_ANNOUNCEMENT environment variable in development
+      announcement = process.env.LOCAL_ANNOUNCEMENT || '';
+      console.log('Using local announcement:', announcement);
+    } else {
+      // In production, use Edge Config
+      try {
+        const client = createClient(process.env.EDGE_CONFIG);
+        if (client) {
+          announcement = await client.get('announcement') || '';
+        }
+      } catch (error) {
+        console.error('Error fetching from Edge Config:', error);
+      }
     }
     
     return NextResponse.json(
@@ -24,7 +33,7 @@ export async function GET() {
       }
     );
   } catch (error) {
-    console.error('Error fetching announcement:', error);
+    console.error('Error in announcement API:', error);
     return NextResponse.json({ announcement: '' }, { status: 500 });
   }
 }
