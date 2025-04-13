@@ -19,12 +19,16 @@ import {AnnouncementBanner} from "@/components/ui/announcement-banner";
 export default function Home() {
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [announcement, setAnnouncement] = useState("");
+  const [announcementType, setAnnouncementType] = useState<"warning" | "info">("info");
   
   // Fetch announcement from API
   useEffect(() => {
     fetch('/api/announcement')
       .then(res => res.json())
-      .then(data => setAnnouncement(data.announcement))
+      .then(data => {
+        setAnnouncement(data.announcement);
+        setAnnouncementType(data.type || "info");
+      })
       .catch(err => console.error("Failed to fetch announcement:", err));
   }, []);
   
@@ -61,7 +65,7 @@ export default function Home() {
   return (
     <div className="space-y-16 mb-12">
       {/* Announcement Banner */}
-      <AnnouncementBanner announcement={announcement} />
+      <AnnouncementBanner announcement={announcement} type={announcementType} />
       
       {/* Hero Section */}
       <section className="flex flex-col-reverse md:flex-row items-center md:items-start justify-between gap-6 max-w-3xl mx-auto">
