@@ -16,6 +16,79 @@ import {getTechIcon, getSimpleTechIcon} from "@/lib/utils";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {AnnouncementBanner} from "@/components/ui/announcement-banner";
 
+// Work experience data
+const workExperiences = [
+  {
+    company: "ALTEN",
+    role: "Bachelor Thesis / Internship",
+    period: { start: "Feb 2024", end: "May 2024" },
+    logo: "/alten.svg",
+    locationText: "Turin - Italy",
+    tasks: [
+      "Conducted application performance analysis using Dynatrace to improve user experience and software performance",
+      "Optimized Application Performance Index (APDEX) for measuring user satisfaction and identifying performance bottlenecks",
+      "Performed daily data analysis and extraction using SQL to improve transparency and support decision-making"
+    ],
+    techStack: ["Dynatrace", "SQL", "APM"]
+  },
+  {
+    company: "GradFuel",
+    role: "Team Lead & Full-Stack Developer",
+    period: { start: "Apr 2020", end: "May 2021" },
+    logo: "/gradfuel.svg",
+    locationText: "Remote - London",
+    tasks: [
+      "Led an Auroware team developing GradFuel, a B2B SaaS platform built with MongoDB, Express, React, and Node.js",
+      "Managed recruiting and funding processes for 1,500 SMBs",
+      "Contributed to the company's valuation of €1.05 Million in 2020"
+    ],
+    techStack: ["MongoDB", "Express", "React", "Node.js"]
+  },
+  {
+    company: "Auroware Ltd.",
+    role: "Co-Founder & Technical Lead",
+    period: { start: "Feb 2020", end: "Jun 2021" },
+    logo: "/auroware.png",
+    locationText: "Remote - London",
+    tasks: [
+      "Co-founded an IT consulting company with two partners, leading business and technical aspects",
+      "Managed a team of three employees while overseeing project development",
+      "Collaborated closely with clients on defining, planning, and implementing projects",
+      "Led meetings with clients and stakeholders to communicate technical concepts and develop efficient solutions",
+    ],
+    techStack: ["Project Management", "Agile Methodologies", "Team Management"]
+  }
+];
+
+// Education data
+const educationExperiences = [
+  {
+    institution: "University of Turin",
+    degree: "Bachelor in Computer Science",
+    period: { start: "Nov 2021", end: "Nov 2024" },
+    logo: "/university.svg",
+    locationText: "Turin, Italy",
+    description: "Graduated with a score of 107/110, focusing on software development, algorithms, and system design. Gained practical experience in object-oriented programming with Java and Python, algorithms, data structures, databases (SQL and NoSQL), network technologies, and full-stack development with React and Node.js.",
+    thesis: {
+      title: "Application Performance Monitoring: the Apdex Score",
+      description: "Developed dashboards for real-time monitoring of user satisfaction and application performance",
+      link: "/thesis.pdf"
+    },
+    techStack: [
+      "Java", 
+      "Python", 
+      "JavaScript", 
+      "TypeScript", 
+      "C", 
+      "HTML / CSS", 
+      "Node.js", 
+      "SQL", 
+      "NoSQL", 
+      "Software Development Practices"
+    ]
+  }
+];
+
 export default function Home() {
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [announcement, setAnnouncement] = useState("");
@@ -187,46 +260,18 @@ function TabsSection() {
           <Card className="border-gray-200 dark:border-[#333333] dark:bg-transparent">
             <CardContent className="p-0">
               <ul className="ml-10 border-l border-gray-200 dark:border-[#333333]">
-                <WorkExperienceTimelineItem 
-                  company="ALTEN"
-                  role="Bachelor Thesis / Internship"
-                  period={{ start: "Feb 2024", end: "May 2024" }}
-                  logo="/alten.svg"
-                  locationText="Turin - Italy"
-                  tasks={[
-                    "Conducted application performance analysis using Dynatrace to improve user experience and software performance",
-                    "Optimized Application Performance Index (APDEX) for measuring user satisfaction and identifying performance bottlenecks",
-                    "Performed daily data analysis and extraction using SQL to improve transparency and support decision-making"
-                  ]}
-                  techStack={["Dynatrace", "SQL", "APM"]}
-                />
-                <WorkExperienceTimelineItem 
-                  company="GradFuel"
-                  role="Team Lead & Full-Stack Developer"
-                  period={{ start: "Apr 2020", end: "May 2021" }}
-                  logo="/gradfuel.svg"
-                  locationText="Remote - London"
-                  tasks={[
-                    "Led an Auroware team developing GradFuel, a B2B SaaS platform built with MongoDB, Express, React, and Node.js",
-                    "Managed recruiting and funding processes for 1,500 SMBs",
-                    "Contributed to the company's valuation of €1.05 Million in 2020"
-                  ]}
-                  techStack={["MongoDB", "Express", "React", "Node.js"]}
-                />
-                <WorkExperienceTimelineItem 
-                  company="Auroware Ltd."
-                  role="Co-Founder & Technical Lead"
-                  period={{ start: "Feb 2020", end: "Jun 2021" }}
-                  logo="/auroware.png"
-                  locationText="Remote - London"
-                  tasks={[
-                    "Co-founded an IT consulting company with two partners, leading business and technical aspects",
-                    "Managed a team of three employees while overseeing project development",
-                    "Collaborated closely with clients on defining, planning, and implementing projects",
-                    "Led meetings with clients and stakeholders to communicate technical concepts and develop efficient solutions",
-                  ]}
-                  techStack={["Project Management", "Agile Methodologies", "Team Management"]}
-                />
+                {workExperiences.map((experience, index) => (
+                  <WorkExperienceTimelineItem 
+                    key={index}
+                    company={experience.company}
+                    role={experience.role}
+                    period={experience.period}
+                    logo={experience.logo}
+                    locationText={experience.locationText}
+                    tasks={experience.tasks}
+                    techStack={experience.techStack}
+                  />
+                ))}
               </ul>
             </CardContent>
           </Card>
@@ -236,31 +281,19 @@ function TabsSection() {
           <Card className="border-gray-200 dark:border-[#333333] dark:bg-transparent">
             <CardContent className="p-0">
                 <ul className="ml-10 border-l border-gray-200 dark:border-[#333333]">
-                <EducationTimelineItem 
-                  institution="University of Turin"
-                  degree="Bachelor in Computer Science"
-                  period={{ start: "Nov 2021", end: "Nov 2024" }}
-                  logo="/university.svg"
-                  locationText="Turin, Italy"
-                  description="Graduated with a score of 107/110, focusing on software development, algorithms, and system design. Gained practical experience in object-oriented programming with Java and Python, algorithms, data structures, databases (SQL and NoSQL), network technologies, and full-stack development with React and Node.js."
-                  thesis={{
-                  title: "Application Performance Monitoring: the Apdex Score",
-                  description: "Developed dashboards for real-time monitoring of user satisfaction and application performance",
-                  link: "/thesis.pdf"
-                  }}
-                  techStack={[
-                  "Java", 
-                  "Python", 
-                  "JavaScript", 
-                  "TypeScript", 
-                  "C", 
-                  "HTML / CSS", 
-                  "Node.js", 
-                  "SQL", 
-                  "NoSQL", 
-                  "Software Development Practices"
-                  ]}
-                />
+                {educationExperiences.map((experience, index) => (
+                  <EducationTimelineItem 
+                    key={index}
+                    institution={experience.institution}
+                    degree={experience.degree}
+                    period={experience.period}
+                    logo={experience.logo}
+                    locationText={experience.locationText}
+                    description={experience.description}
+                    thesis={experience.thesis}
+                    techStack={experience.techStack}
+                  />
+                ))}
                 </ul>
             </CardContent>
           </Card>
