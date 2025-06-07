@@ -22,7 +22,7 @@ const workExperiences = [
     company: "Naveum AG",
     role: "Development Operations Engineer",
     period: { start: "May 2025", end: "Present" },
-    logo: "/naveum.svg",
+    logo: "/naveum.png",
     locationText: "Zürich - Switzerland",
     tasks: [
       "Automating infrastructure deployment and management for cloud, on-prem and hybrid environments"
