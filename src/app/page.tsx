@@ -19,6 +19,17 @@ import {AnnouncementBanner} from "@/components/ui/announcement-banner";
 // Work experience data
 const workExperiences = [
   {
+    company: "Naveum AG",
+    role: "Development Operations Engineer",
+    period: { start: "May 2025", end: "Present" },
+    logo: "/naveum.svg",
+    locationText: "Zürich - Switzerland",
+    tasks: [
+      "Automating infrastructure deployment and management for cloud, on-prem and hybrid environments"
+    ],
+    techStack: ["PowerShell", "Azure AD", "M365", "Active Directory", "Windows Server", "VMWare", "CI/CD", "Python", "Git"]
+  },
+  {
     company: "ALTEN",
     role: "Bachelor Thesis / Internship",
     period: { start: "Feb 2024", end: "May 2024" },
