@@ -20,14 +20,18 @@ import {AnnouncementBanner} from "@/components/ui/announcement-banner";
 const workExperiences = [
   {
     company: "Naveum AG",
-    role: "Development Operations Engineer",
+    role: "DevOps Engineer",
     period: { start: "May 2025", end: "Present" },
     logo: "/naveum.jpeg",
     locationText: "Zürich - Switzerland",
     tasks: [
-      "Automating infrastructure deployment and management for cloud, on-prem and hybrid environments"
+      "Built and maintained CI/CD pipelines for cloud, on-prem, and hybrid environments",
+      "Automated infrastructure deployment, configuration, and operational tasks",
+      "Managed M365 environments including user lifecycle, access policies, and service integrations",
+      "Handled first-level security incident response including triage and escalation",
+      "Administered Windows and Linux server infrastructure"
     ],
-    techStack: ["PowerShell", "Azure AD", "M365", "Active Directory", "Windows Server", "VMWare", "CI/CD", "Python", "Git"]
+    techStack: ["PowerShell", "Python", "CI/CD", "Active Directory", "M365", "Windows Server", "Linux", "Git"]
   },
   {
     company: "ALTEN",

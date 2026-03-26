@@ -69,7 +69,7 @@ export default function RootLayout({
             
             <footer className="py-6 border-t border-gray-100 dark:border-gray-800">
               <div className="container max-w-4xl mx-auto px-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                © {new Date().getFullYear()} Leoluca D&apos;Atri
+                &copy;{' '}{new Date().getFullYear()}{' '}Leoluca D&apos;Atri
               </div>
             </footer>
           </div>
