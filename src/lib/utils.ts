@@ -24,6 +24,7 @@ import {
   faLinux,
   faPhp,
   faMicrosoft,
+  faWindows,
   IconDefinition
 } from '@fortawesome/free-brands-svg-icons';
 
@@ -74,7 +75,17 @@ export const techIconMap: Record<string, IconDefinition | null> = {
   'docker': faDocker,
   'npm': faNpm,
   'github': faGithub,
-  
+  'ci/cd': faGears,
+
+  // Microsoft / Windows
+  'windows': faWindows,
+  'windows server': faWindows,
+  'm365': faMicrosoft,
+  'active directory': faSitemap,
+
+  // Shell / Scripting
+  'powershell': faTerminal,
+
   // Tools
   'git': faGit,
   'project management': faJira,
