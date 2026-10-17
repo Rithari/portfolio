@@ -31,6 +31,21 @@ export const metadata: Metadata = {
       type: 'image/png',
     },
   },
+  metadataBase: new URL("https://www.leolucadatri.io"),
+  openGraph: {
+    type: "website",
+    title: "If It Works, I Wrote It",
+    description: "Leo's portfolio",
+    url: "https://www.leolucadatri.io",
+    siteName: "leolucadatri.io",
+    images: [{ url: "/pfp.jpeg", width: 460, height: 460, alt: "Leoluca D'Atri" }],
+  },
+  twitter: {
+    card: "summary",
+    title: "If It Works, I Wrote It",
+    description: "Leo's portfolio",
+    images: ["/pfp.jpeg"],
+  },
 };
 
 export default function RootLayout({
@@ -54,7 +69,6 @@ export default function RootLayout({
                   <ul className="flex gap-6">
                     <li><Link href="/" className="text-sm text-gray-400 hover:text-gray-100">home</Link></li>
                     <li><a href="#projects" className="text-sm text-gray-400 hover:text-gray-100">projects</a></li>
-                    <li><a href="/wynnxp/index.html" className="text-sm text-gray-400 hover:text-gray-100">wynnxp</a></li>
                   </ul>
                 </nav>
                 <ThemeToggle />

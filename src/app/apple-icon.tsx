@@ -13,7 +13,7 @@ export const contentType = 'image/png';
 
 export default function AppleIcon() {
   // Get the path to the icon file
-  const iconPath = join(process.cwd(), 'src', 'app', 'apple-touch-icon.png');
+  const iconPath = join(process.cwd(), 'public', 'apple-touch-icon.png');
   // Read the file as buffer
   const iconBuffer = readFileSync(iconPath);
   // Return as a response
