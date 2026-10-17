@@ -86,6 +86,6 @@ tsconfig.tsbuildinfo
 .turbo
 .svelte-kit
 
-# WynnXP
-public/wynnxp/js/mock-items.json
+# WynnXP (archived at repo root, not deployed)
+archive/wynnxp/js/mock-items.json
 .env*.local
