@@ -160,10 +160,14 @@ export default function Home() {
         <div className="text-left w-full">
           <h1 className="text-5xl font-bold mb-3">hi leo here <span className="wave">👋</span></h1>
           <p className="text-lg mb-2 text-gray-600 dark:text-gray-400">
-            software engineer from Zürich 🇨🇭
+            software &amp; devops engineer from zürich 🇨🇭
+          </p>
+          <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
+            i like building stuff, figuring out how things work and automating the bits that get annoying.
           </p>
           <p className="text-gray-600 dark:text-gray-400 mb-10 text-sm">
-            I like to build stuff. I particularly like doing that with Java, C# and Python.<br /> Outside of coding, I play the clarinet and speak 🇩🇪 (🇨🇭), 🇮🇹 & 🇬🇧  <br /> —sometimes all in the same day.
+            i also play the clarinet and speak 🇩🇪 (🇨🇭), 🇮🇹 &amp; 🇬🇧<br />
+            —sometimes all in the same day.
           </p>
           
           <div className="flex gap-4 mb-6">
