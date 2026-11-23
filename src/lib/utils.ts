@@ -76,6 +76,9 @@ export const techIconMap: Record<string, IconDefinition | null> = {
   'npm': faNpm,
   'github': faGithub,
   'ci/cd': faGears,
+  'ansible': faGears,
+  'llms': faMicrochip,
+  'mcp': faDiagramProject,
 
   // Microsoft / Windows
   'windows': faWindows,
