@@ -25,13 +25,12 @@ const workExperiences = [
     logo: "/naveum.jpeg",
     locationText: "Zürich - Switzerland",
     tasks: [
-      "Built and maintained CI/CD pipelines for cloud, on-prem, and hybrid environments",
-      "Automated infrastructure deployment, configuration, and operational tasks",
-      "Managed M365 environments including user lifecycle, access policies, and service integrations",
-      "Handled first-level security incident response including triage and escalation",
-      "Administered Windows and Linux server infrastructure"
+      "Built a self-hosted, on-premises LLM platform with Active Directory single sign-on and MCP integrations with internal systems",
+      "Automated infrastructure, deployments and operations with CI/CD and Ansible across cloud, on-premises and hybrid environments",
+      "Managed M365 and Active Directory: user lifecycle, access policies and service integrations",
+      "Handled first-level security incident response and administered Windows and Linux servers"
     ],
-    techStack: ["PowerShell", "Python", "CI/CD", "Active Directory", "M365", "Windows Server", "Linux", "Git"]
+    techStack: ["LLMs", "MCP", "Ansible", "CI/CD", "PowerShell", "Python", "Active Directory", "M365", "Windows Server", "Linux", "Git"]
   },
   {
     company: "ALTEN",
