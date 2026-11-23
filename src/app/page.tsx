@@ -25,7 +25,7 @@ const workExperiences = [
     logo: "/naveum.jpeg",
     locationText: "Zürich - Switzerland",
     tasks: [
-      "Built a self-hosted, on-premises LLM platform with Active Directory single sign-on and MCP integrations with internal systems",
+      "Built a self-hosted, on-premises LLM platform integrated with internal systems through MCP",
       "Automated infrastructure, deployments and operations with CI/CD and Ansible across cloud, on-premises and hybrid environments",
       "Managed M365 and Active Directory: user lifecycle, access policies and service integrations",
       "Handled first-level security incident response and administered Windows and Linux servers"
